@@ -1,0 +1,82 @@
+cat > .gitignore <<'EOF'
+
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+results/*
+plot/*
+models/*
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+*.egg-info/
+build/
+dist/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+*.png
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual envs
+.venv/
+venv/
+env/
+ENV/
+env_sc2/
+*.conda*
+*.env
+
+# Logs/temp/checkpoints
+*.log
+*.tmp
+*.swp
+
+#outputs
+runs/
+lightning_logs/
+tensorboard/
+checkpoints/
+outputs/
+results/
+logs/
+
+#videos / replays
+*.mp4
+*.avi
+*.mkv
+
+
+#Data
+data/
+datasets/
+*.pt
+*.pth
+*.ckpt
+*.npz
+*.npy
+*.pkl
+*.pickle
+
+# Secrets/local config
+.env
+*.key
+*.pem
+*secret*
+*token*
+
+
+#StarCraft II
+StarCraftII/
+SC2/
+Replay/
+Replays/
+EOF
