@@ -132,7 +132,7 @@ class RewardCalculator:
         combat_score -= R_FRAC_OUR * frac_our
 
         if reason == "win":
-            combat_score += 90.0
+            combat_score += 90.0 # or 20 to make it smaller
         elif ("timeout" in reason) or ("force_reset_low_army" in reason):
             combat_score -= self.p.R_TIMEOUT_BASE * (1.0 + 5.0 * remaining_enemy_frac)
 
