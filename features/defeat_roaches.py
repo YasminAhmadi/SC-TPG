@@ -14,7 +14,7 @@ class RoachFeatureExtractor:
         self.marine_mem = {}
         self.marine_prev_hp = {}
 
-    def reset(self):
+    def reset(self, bot=None):
         self.marine_mem.clear()
         self.marine_prev_hp.clear()
 

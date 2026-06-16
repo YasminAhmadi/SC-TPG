@@ -155,7 +155,7 @@ class ActionObject:
 
             # let our current team know we won't be pointing to them anymore
             if not self.isAtomic():
-                print("Learner {} switching from Team {} to atomic action".format(learner_id, self.teamAction.id))
+                # print("Learner {} switching from Team {} to atomic action".format(learner_id, self.teamAction.id))
                 self.teamAction.inLearners.remove(str(learner_id))
 
             self.actionCode = random.choice(options)

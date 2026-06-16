@@ -132,14 +132,14 @@ class SwarmBot(BotAI):
 
         # print("_start_new_generation")
         t = self.trainer
-        print(
-            f"[DBG] gen_mut={t.mutateParams.get('generation')} "
-            f"gen_attr={t.generation} "
-            f"rootTeams={len(t.rootTeams)} "
-            f"agents={len(t.getAgents())} "
-            f"elites={len(getattr(t, 'elites', []))}",
-            flush=True
-        )
+        # print(
+        #     f"[DBG] gen_mut={t.mutateParams.get('generation')} "
+        #     f"gen_attr={t.generation} "
+        #     f"rootTeams={len(t.rootTeams)} "
+        #     f"agents={len(t.getAgents())} "
+        #     f"elites={len(getattr(t, 'elites', []))}",
+        #     flush=True
+        # )
 
         n = len(self.agents)
         gen_on_trainer = getattr(self.trainer, "generation", 0)
@@ -192,7 +192,12 @@ class SwarmBot(BotAI):
 
         self._enemy_seen_tags = set()
         
+        # reset VF or not
+        self._combat_virtual_frame_by_tag = {}
+        
         self._tags_relocked_once = False
+        
+        self.task.fe.reset(self)
         
         # record
         self._has_acted_this_episode = False
@@ -717,6 +722,10 @@ class SwarmBot(BotAI):
         agent = self.agents[self.cur_idx]
         ms = marine_units(self)
 
+        # for combat memory
+        if hasattr(self.policy, "begin_step"):
+            self.policy.begin_step(bot=self, task=self.task)
+        
         state21_cache = {}
         if ms:
             for m in ms:
@@ -736,7 +745,14 @@ class SwarmBot(BotAI):
                 marine_actions[m.tag] = a
         # print("marine_actions:", marine_actions)
 
-
+        # VF or not
+        if hasattr(self.policy, "export_virtual_frames"):
+            self._combat_virtual_frame_by_tag = self.policy.export_virtual_frames(self)
+            # print("self._combat_virtual_frame_by_tag: ", self._combat_virtual_frame_by_tag)
+        else:
+            self._combat_virtual_frame_by_tag = {}
+            # print("self._combat_virtual_frame_by_tag: ", self._combat_virtual_frame_by_tag)
+        
         # save snapshot
         self._last_frame_snap = self._make_frame_snapshot(cur_m_all, cur_e_bio)
 

@@ -65,6 +65,7 @@ class MvZBTask:
             "name": "MvZB",
             "partial_obs_enemy": False,
         },
+                
         "masked": {
             "feature_module": "features.mvzb_mask",
             "action_module": "actions.mvzb_mask",

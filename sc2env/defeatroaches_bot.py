@@ -222,7 +222,12 @@ class SwarmBot(BotAI):
         self._enemy_alive_tags = set()
         self._enemy_seen_tags = set()
         
+        # reset VF or not
+        self._combat_virtual_frame_by_tag = {}
+        
         self._tags_relocked_once = False
+        
+        self.task.fe.reset(self)
         
         # record
         self._has_acted_this_episode = False
@@ -881,6 +886,15 @@ class SwarmBot(BotAI):
             # self.wmrec.record_step(self, marine_actions, 0.0, False)
             # self._wm_pending = True
 
+        # VF
+        # if hasattr(self.policy, "export_virtual_frames"):
+        #     self._combat_virtual_frame_by_tag = self.policy.export_virtual_frames(self)
+        #     # print("self._combat_virtual_frame_by_tag: ", self._combat_virtual_frame_by_tag)
+        # else:
+        #     self._combat_virtual_frame_by_tag = {}
+        #     # print("self._combat_virtual_frame_by_tag: ", self._combat_virtual_frame_by_tag)
+        
+        
         self._last_frame_snap = self._make_frame_snapshot(cur_m_all, cur_e_bio)
         # print("self._last_frame_snap:", self._last_frame_snap)
 

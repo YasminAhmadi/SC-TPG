@@ -8,7 +8,7 @@ from sc2.data import Alliance
 from sc2.ids.unit_typeid import UnitTypeId
 
 from config.schema import *
-from tpg.mu_try import render_trace_graph
+# from tpg.mu_try import render_trace_graph
 
 
 def _utid(x) -> int:
@@ -420,25 +420,25 @@ async def announce(bot, msg: str):
     print(msg, flush=True)
 
 
-def draw_trace(cfg: TrainConfig, bot: Any, best_agent: Any) -> None:
-    """
-    OLD VERSION
-    bot: Only needs to provide `featurize_for_trace` for the task/policy (you can use `bot.features` now).
-    best_agent: TPG agent.
-    """
-    try:
+# def draw_trace(cfg: TrainConfig, bot: Any, best_agent: Any) -> None:
+#     """
+#     OLD VERSION
+#     bot: Only needs to provide `featurize_for_trace` for the task/policy (you can use `bot.features` now).
+#     best_agent: TPG agent.
+#     """
+#     try:
 
-        if hasattr(bot, "task") and hasattr(bot.task, "fe") and hasattr(bot.task.fe, "featurize_for_trace"):
-            state_vec = bot.task.fe.featurize_for_trace(bot).tolist()
-        else:
-            # fallback：for old version
-            state_vec = bot.features.featurize_for_trace(bot).tolist()
+#         if hasattr(bot, "task") and hasattr(bot.task, "fe") and hasattr(bot.task.fe, "featurize_for_trace"):
+#             state_vec = bot.task.fe.featurize_for_trace(bot).tolist()
+#         else:
+#             # fallback：for old version
+#             state_vec = bot.features.featurize_for_trace(bot).tolist()
 
-        trace = {}
-        _ = best_agent.act(state_vec, path_trace=trace)
+#         trace = {}
+#         _ = best_agent.act(state_vec, path_trace=trace)
 
-        trace_path = cfg.trace_dir / f"trace_gen{bot.generation:03d}"
-        render_trace_graph(trace, filename=str(trace_path))
-        print(f"[Gen {bot.generation:03d}] trace saved -> {trace_path}")
-    except Exception as e:
-        print(f"[Gen {bot.generation:03d}] trace render failed: {e}", flush=True)
+#         trace_path = cfg.trace_dir / f"trace_gen{bot.generation:03d}"
+#         render_trace_graph(trace, filename=str(trace_path))
+#         print(f"[Gen {bot.generation:03d}] trace saved -> {trace_path}")
+#     except Exception as e:
+#         print(f"[Gen {bot.generation:03d}] trace render failed: {e}", flush=True)

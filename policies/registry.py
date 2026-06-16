@@ -11,6 +11,10 @@ def make_policy(name: str, **kwargs: Any):
         from policies.no_memory import NoMemoryPolicy
         return NoMemoryPolicy(**kwargs)
     
+    if name in ("combat"):
+        from policies.combat_memory import CombatMemoryMaskedPolicy
+        return CombatMemoryMaskedPolicy(**kwargs)
+    
     if name in ("no_masked"):
         # from policies.no_memory_masked import NoMemoryPolicyMasked
         # return NoMemoryPolicyMasked(**kwargs)
@@ -25,8 +29,4 @@ def make_policy(name: str, **kwargs: Any):
         from policies.evolved_memory import EvolvedMemoryPolicy
         return EvolvedMemoryPolicy(**kwargs)
 
-    if name == "act_masked":
-        from policies.act_masked import ActMaskedPolicy
-        return ActMaskedPolicy(**kwargs)
-    
     raise ValueError(f"Unknown policy: {name}")
